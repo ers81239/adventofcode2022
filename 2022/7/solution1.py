@@ -134,7 +134,16 @@ def emit_child_sizes_over(cur_dir, size):
         ret_val.extend(emit_child_sizes_over(child, size))
     return ret_val
 
-larger_than = 8381165
+
+disk_size = 70000000
+used_size = terminal.cur_dir.children_size
+needed_size =  30000000
+needed_to_delete = abs(disk_size - needed_size - used_size)
+
+print(f"Disk size is {disk_size}, {used_size} is used, so we need to delete at least {needed_to_delete}")
+
+larger_than = needed_to_delete
+
 
 all_sizes = emit_child_sizes_over(terminal.cur_dir, larger_than)
 all_sizes.sort()
@@ -142,11 +151,8 @@ all_sizes.sort()
 for size in all_sizes:
     if size > larger_than:
         print(f"Smallest size over {larger_than} is {size}")
+        delete_size = size
         break
-
-
-
-
 
 
 
